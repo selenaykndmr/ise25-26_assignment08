@@ -28,7 +28,7 @@ public abstract class CrudServiceImpl<DOMAIN extends DomainModel<ID>, ID>
         implements CrudService<DOMAIN, ID> {
 
     /**
-     * Returns the data service instance for CRUD operations.
+     * Returns the data service instance for CRUD operations..
      * Subclasses must provide their specific data service implementation.
      *
      * @return the CrudDataService implementation for the domain type
