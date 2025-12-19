@@ -173,4 +173,25 @@ public class ReviewServiceTest {
         // then
         assertTrue(updatedReview.approved());
     }
+    @Test
+    void createReviewSuccessfully() {
+        // given
+        Review review = TestFixtures.getReviewFixtures().getFirst();
+        Pos pos = review.pos();
+        User author = review.author();
+
+        assertNotNull(pos.getId());
+        when(posDataService.getById(pos.getId())).thenReturn(pos);
+        when(reviewDataService.filter(pos, author)).thenReturn(List.of());
+        when(reviewDataService.upsert(review)).thenReturn(review);
+
+        // when
+        Review savedReview = reviewService.upsert(review);
+
+        // then
+        verify(posDataService).getById(pos.getId());
+        verify(reviewDataService).filter(pos, author);
+        verify(reviewDataService).upsert(review);
+        assertThat(savedReview).isEqualTo(review);
+    }
 }
